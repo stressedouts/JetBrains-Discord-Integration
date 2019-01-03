@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
-public class SerializablePair<L, R> extends Pair<L, R> implements Serializable
+public class SerializablePair<L extends Serializable, R extends Serializable> extends Pair<L, R> implements Serializable
 {
     public SerializablePair(L first, R second)
     {

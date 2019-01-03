@@ -1,7 +1,7 @@
 package com.almightyalpaca.jetbrains.plugins.discord.themes;
 
-import com.almightyalpaca.jetbrains.plugins.discord.utils.SerializablePair;
 import com.google.gson.JsonObject;
+import com.intellij.openapi.util.Pair;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +23,6 @@ public class Icon
     @NotNull
     private final Map<String, Set<Matcher>> matchers;
 
-
     public Icon(@NotNull String name, @NotNull String assetKey, @NotNull Map<String, Set<Matcher>> matchers)
     {
         this.name = name;
@@ -44,7 +43,7 @@ public class Icon
         Map<String, Set<Matcher>> matchers = matcherObject.entrySet().stream()
                 .flatMap(entry -> StreamSupport
                         .stream(entry.getValue().getAsJsonArray().spliterator(), false)
-                        .map(jsonElement -> new SerializablePair<>(entry.getKey().toLowerCase(), Matcher.fromJson(jsonElement.getAsJsonObject()))))
+                        .map(jsonElement -> new Pair<>(entry.getKey().toLowerCase(), Matcher.fromJson(jsonElement.getAsJsonObject()))))
                 .collect(Collectors.groupingBy(
                         p -> p.getFirst(),
                         Collectors.mapping(
@@ -73,7 +72,6 @@ public class Icon
         return Optional.ofNullable(getMatchers().get(key.toLowerCase()))
                 .orElse(Collections.emptySet());
     }
-
 
     @NotNull
     public String getAssetKey()
